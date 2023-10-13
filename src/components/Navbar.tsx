@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CustomButton from "./CustomButton";
 import Link from "next/link";
 import { CgMenu } from "react-icons/cg";
@@ -11,6 +11,7 @@ import { ModeToggle } from "./ui/DarkMode";
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [isOpen, setIsOpen] = useState(false);
+
   const links = [
     {
       id: 1,

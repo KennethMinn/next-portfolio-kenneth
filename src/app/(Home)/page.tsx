@@ -2,6 +2,7 @@ import AnimationText from "@/components/AnimationText";
 import CustomButton from "@/components/CustomButton";
 import Svg from "@/components/Svg";
 import animationData from "../../../public/coder-animation.json";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -18,7 +19,9 @@ const Home = () => {
           <p>I&apos;m a passionate & hardworking</p>
           <p>web developer from myanmar</p>
         </div>
-        <CustomButton styles=" bg-green-500 mt-5" title="See my Work" />
+        <Link href={"/projects"}>
+          <CustomButton styles=" bg-green-500 mt-5" title="See my Work" />
+        </Link>
       </div>
       <Svg animationData={animationData} styles="md:w-[700px] w-[400px]" />
     </div>
