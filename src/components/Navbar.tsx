@@ -7,10 +7,20 @@ import { CgMenu } from "react-icons/cg";
 import { link } from "fs";
 import { AiOutlineClose } from "react-icons/ai";
 import { ModeToggle } from "./ui/DarkMode";
+import { signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
+
+interface UserProps {
+  name: string;
+  email: string;
+  image: string | StaticImport;
+}
 
 const Navbar = () => {
   const [active, setActive] = useState("Home");
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
 
   const links = [
     {
@@ -76,7 +86,34 @@ const Navbar = () => {
           </Link>
         ))}
         <ModeToggle />
-        {/* <CustomButton title="Logout" styles=" bg-green-600" /> */}
+        {!session && (
+          <CustomButton
+            title="Sign In"
+            onClick={() => signIn()}
+            styles=" bg-green-600"
+          />
+        )}
+        {session && (
+          <div className=" flex gap-4 items-center">
+            <CustomButton
+              title="Logout"
+              onClick={() => signOut()}
+              styles=" bg-green-600"
+            />
+            {session?.user?.name}
+          </div>
+        )}
+        {session && session?.user?.image && (
+          <div>
+            <Image
+              width={35}
+              className=" rounded-full"
+              height={10}
+              src={session?.user?.image}
+              alt="user_image"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
